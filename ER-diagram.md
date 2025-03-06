@@ -59,7 +59,7 @@ Table payments {
   date timestamp [NOT NULL]
   type varchar [NOT NULL]
   actual_price decimal [NOT NULL]
-  discount_percentage integer [NOT NULL, NOTE: "We don't know why discount happened"]
+  discount_percentage decimal [NOT NULL, NOTE: "We don't know why discount happened"]
 }
 
 Table payment_type {
