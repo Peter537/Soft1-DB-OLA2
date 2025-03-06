@@ -20,8 +20,8 @@ Table memberships {
 Table training_teams {
   id integer [PK]
   type varchar [NOT NULL]
-  max_members int [NOT NULL]
-  instructor_id int [NOTE: "The Instructor assigned to the Team"]
+  max_members integer [NOT NULL]
+  instructor_id integer [NOTE: "The Instructor assigned to the Team"]
 }
 
 Table training_types {
