@@ -8,25 +8,25 @@ Table members {
   middle_initial varchar
   last_name varchar [NOT NULL]
   join_date timestamp [NOT NULL]
-  membership_type string [NOT NULL]
+  membership_type varchar [NOT NULL]
   phone_number varchar
 }
 
 Table memberships {
-  type string [PK]
+  type varchar [PK]
   price decimal [NOT NULL]
 }
 
 Table training_teams {
   id integer [PK]
-  type string [NOT NULL]
+  type varchar [NOT NULL]
   max_members int [NOT NULL]
   instructor_id int [NOTE: "The Instructor assigned to the Team"]
 }
 
 Table training_types {
-  type string [PK]
-  description string [NOT NULL]
+  type varchar [PK]
+  description varchar [NOT NULL]
 }
 
 Table training_times {
