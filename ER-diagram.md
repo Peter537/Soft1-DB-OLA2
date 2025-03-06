@@ -33,7 +33,7 @@ Table training_times {
   id integer [PK]
   team_id integer [NOT NULL]
   start_time timestamp [NOT NULL]
-  interval interval [NOT NULL]
+  duration interval [NOT NULL]
   instructor_id integer [NOT NULL, NOTE: "The Instructor present for the time"]
 }
 
@@ -62,7 +62,7 @@ Table payments {
   discount_percentage decimal [NOT NULL, NOTE: "We don't know why discount happened"]
 }
 
-Table payment_type {
+Table payment_types {
   type varchar [PK]
 }
 
@@ -77,5 +77,5 @@ Ref: training_teams.id > training_times.team_id
 Ref: instructors.id > training_teams.instructor_id
 Ref: instructors.id > training_times.instructor_id
 
-Ref: payments.type > payment_type.type
+Ref: payments.type > payment_types.type
 ```
