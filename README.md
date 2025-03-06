@@ -12,7 +12,95 @@ Vi har benyttet os af https://dbdiagram.io/ til at lave vores ER Model. [Databas
 
 [ INDSÆT BILLEDE AF ER-MODEL HER ]
 
-### Forklaring af ER-model
+### Constraint definitioner:
+
+- PK: Primary Key
+- FK: Foreign Key
+- NN: Not Null
+- U: Unique
+
+### `members`-table
+
+| Attribut        | Domain    | Constraints | Beskrivelse, Noter & Overvejelser |
+| --------------- | --------- | ----------- | --------------------------------- |
+| id              | integer   | PK          |                                   |
+| email           | varchar   | NN, U       |                                   |
+| first_name      | varchar   | NN          |                                   |
+| middle_initial  | varchar   |             |                                   |
+| last_name       | varchar   | NN          |                                   |
+| join_date       | timestamp | NN          |                                   |
+| membership_type | varchar   | FK, NN      |                                   |
+| phone_number    | varchar   |             |                                   |
+
+### `memberships`-table
+
+| Attribut | Domain  | Constraints | Beskrivelse, Noter & Overvejelser |
+| -------- | ------- | ----------- | --------------------------------- |
+| type     | varchar | PK          |                                   |
+| price    | decimal | FK, NN      |                                   |
+
+### `training_teams`-table
+
+| Attribut      | Domain  | Constraints | Beskrivelse, Noter & Overvejelser |
+| ------------- | ------- | ----------- | --------------------------------- |
+| id            | integer | PK          |                                   |
+| type          | varchar |             |                                   |
+| max_members   | integer | NN          |                                   |
+| instructor_id | integer | FK          |                                   |
+
+### `training_types`-table
+
+| Attribut    | Domain  | Constraints | Beskrivelse, Noter & Overvejelser |
+| ----------- | ------- | ----------- | --------------------------------- |
+| type        | varchar | PK          |                                   |
+| description | varchar | NN          |                                   |
+
+### `training_times`-table
+
+| Attribut      | Domain  | Constraints | Beskrivelse, Noter & Overvejelser |
+| ------------- | ------- | ----------- | --------------------------------- |
+| id            | integer | PK          |                                   |
+| team_id       | integer | FK, NN      |                                   |
+| start_time    | integer | NN          |                                   |
+| interval      | integer | NN          |                                   |
+| instructor_id | integer | FK, NN      |                                   |
+
+### `bookings`-table
+
+| Attribut  | Domain    | Constraints | Beskrivelse, Noter & Overvejelser |
+| --------- | --------- | ----------- | --------------------------------- |
+| team_id   | integer   | PK          |                                   |
+| member_id | integer   | PK          |                                   |
+| join_date | timestamp | NN          |                                   |
+
+### `instructors`-table
+
+| Attribut       | Domain    | Constraints | Beskrivelse, Noter & Overvejelser |
+| -------------- | --------- | ----------- | --------------------------------- |
+| id             | integer   | PK          |                                   |
+| first_name     | varchar   | NN          |                                   |
+| middle_initial | varchar   |             |                                   |
+| last_name      | varchar   | NN          |                                   |
+| email          | varchar   | NN, U       |                                   |
+| phone_number   | varchar   |             |                                   |
+| join_date      | timestamp | NN          |                                   |
+
+### `payments`-table
+
+| Attribut            | Domain    | Constraints | Beskrivelse, Noter & Overvejelser |
+| ------------------- | --------- | ----------- | --------------------------------- |
+| id                  | integer   | PK          |                                   |
+| member_id           | integer   | FK, NN      |                                   |
+| date                | timestamp | NN          |                                   |
+| type                | varchar   | FK, NN      |                                   |
+| actual_price        | decimal   | NN          |                                   |
+| discount_percentage | decimal   | NN          |                                   |
+
+### `payment_type`-table
+
+| Attribut | Domain  | Constraints | Beskrivelse, Noter & Overvejelser |
+| -------- | ------- | ----------- | --------------------------------- |
+| type     | varchar | PK          |                                   |
 
 Vi har sat `members`-tabellen som vores hovedtabel, da det er dem der er i centrum af fitnesscenteret.
 .. vi har lavet composite attribute omkring name https://prnt.sc/1ll9t1wwbBlB
@@ -34,15 +122,17 @@ Vores `training_times`-tabel er tabellen der holder styr på hvornår hold træn
 
 1. Vores forståelse af `booking`-tabellen er, at det skal være tabellen der holder øje med hvilke medlemmer der har tilsluttet sig forskellige teams, og at det ikke er en tabel som man kan søge om at komme på et træningshold.
 
+2. Vi overvejede lidt om vi burde starte alle FK's navne med `fk_` for at gøre det nemmere at se hvad der er FK
+
+3. Vi overvejede om vi skulle sætte varchar-længder på vores attributter.
+
+### Yderligere overvejelser
+
 2. Ift. discounts, det er noget vi har været i tvivl om, vi har valgt at lave det som en attribut i payments-tabellen, men vi snakkede om, om man burde lave en tabel der havde forskellige slags discounts, hvor længe de varer, og en tabel til hvor members kan blive tildelt discounts. DBML eksempel:
 
 ```
 
 ```
-
-3. Vi overvejede lidt om vi burde starte alle FK's navne med `fk_` for at gøre det nemmere at se hvad der er FK
-
-4. Vi overvejede om vi skulle sætte varchar-længder på vores attributter.
 
 ## 2️⃣ Normalisering af ER-modellen
 
