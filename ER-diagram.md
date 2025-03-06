@@ -45,7 +45,9 @@ Table bookings {
 
 Table instructors {
   id integer [PK]
-  name varchar [NOT NULL]
+  first_name varchar [NOT NULL]
+  middle_initial varchar
+  last_name varchar [NOT NULL]
   email varchar [NOT NULL, UNIQUE]
   phone_number varchar
   join_date timestamp [NOT NULL]
