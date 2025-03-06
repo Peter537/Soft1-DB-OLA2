@@ -1,9 +1,6 @@
 # ER-diagram
 
 ```
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
-
 Table members {
   id integer [PK]
   email varchar [NOT NULL, UNIQUE]
@@ -61,38 +58,23 @@ Table payments {
   type varchar [NOT NULL]
   total_price decimal [NOT NULL]
   actual_price decimal [NOT NULL]
-  discount_id integer
+  discount_percentage integer [NOT NULL, NOTE: "We don't know why discount happened"]
 }
 
 Table payment_type {
   type varchar [PK]
 }
 
-Table member_discounts {
-  id integer [PK]
-  member_id integer [NOT NULL]
-  percentage decimal [NOT NULL, NOTE: "Between 0-100"]
-}
-
 Ref: members.id > bookings.member_id
-
-Ref: training_teams.id > bookings.team_id
-
+Ref: members.id > payments.id
 Ref: members.membership_type > memberships.type
 
-Ref: instructors.id > training_teams.instructor_id
-
-Ref: members.id > member_discounts.member_id
-
+Ref: training_teams.id > bookings.team_id
 Ref: training_teams.type > training_types.type
-
 Ref: training_teams.id > training_times.team_id
 
+Ref: instructors.id > training_teams.instructor_id
 Ref: instructors.id > training_times.instructor_id
-
-Ref: members.id > payments.id
-
-Ref: member_discounts.id > payments.discount_id
 
 Ref: payments.type > payment_type.type
 ```
