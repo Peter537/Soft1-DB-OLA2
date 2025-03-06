@@ -58,7 +58,6 @@ Table payments {
   member_id integer [NOT NULL]
   date timestamp [NOT NULL]
   type varchar [NOT NULL]
-  total_price decimal [NOT NULL]
   actual_price decimal [NOT NULL]
   discount_percentage integer [NOT NULL, NOTE: "We don't know why discount happened"]
 }
