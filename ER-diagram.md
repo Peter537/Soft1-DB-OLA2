@@ -1,6 +1,6 @@
 # ER-diagram
 
-```
+```dbml
 Table members {
   id integer [PK]
   email varchar [NOT NULL, UNIQUE]
@@ -68,7 +68,7 @@ Table payment_type {
 }
 
 Ref: members.id > bookings.member_id
-Ref: members.id > payments.id
+Ref: members.id > payments.member_id
 Ref: members.membership_type > memberships.type
 
 Ref: training_teams.id > bookings.team_id
