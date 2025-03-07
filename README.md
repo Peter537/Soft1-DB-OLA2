@@ -12,7 +12,7 @@
 
 Vi har benyttet os af https://dbdiagram.io/ til at lave vores ER Model. [Database Markup Language (DBML)](https://dbml.dbdiagram.io/docs/)'en som er brugt til at lave ER-Modellen kan findes i [ER-diagram.md](ER-diagram.md) filen.
 
-[ INDSÆT BILLEDE AF ER-MODEL HER ]
+![img](ER-model.png)
 
 ### Constraint definitioner:
 
@@ -89,14 +89,14 @@ Vi har benyttet os af https://dbdiagram.io/ til at lave vores ER Model. [Databas
 | id            | integer   | PK          |
 | team_id       | integer   | FK, NN      |
 | start_time    | timestamp | NN          |
-| interval      | interval  | NN          |
+| duration      | interval  | NN          |
 | instructor_id | integer   | FK, NN      |
 
 **Overvejelser:**
 
 - Vi har lavet `id` som PK for at kunne identificere træningstiderne.
 - Vi har lavet `team_id` som FK til `training_teams`-tabellen og NN for at sikre at når en ny træningstid bliver oprettet er den tilføjet et hold og der ikke kan tilføjes tider uden et hold er tilknyttet.
-- `start_time` og `interval` er NN for at sikre at der er en starttid og interval for træningstiden.
+- `start_time` og `duration` er NN for at sikre at der er en starttid og interval for træningstiden.
 - `instructor_id` er på denne tabel selvom der er en `instructor_id` i `training_teams`-tabellen for at kunne se hvem der faktisk var tilstede, fordi selvom der er en `instructor_id` i `training_teams`-tabellen, så kan det være at en anden instruktør har taget over for en dag.
 
 ### `bookings`-table
@@ -192,5 +192,60 @@ Hvis vi havde haft `total_price` attributen i `payments`-tabellen, så ville det
 ## 3️⃣ Mapping til Relationel Model
 
 ```
-
+MEMBER(
+    id PK,
+    email VARCHAR(100),
+    first_name VARCHAR(50),
+    middle_initial VARCHAR(10),
+    last_name VARCHAR(50),
+    join_date TIMESTAMP,
+    membership_type FK,
+    phone_number VARCHAR(20)
+)
+MEMBERSHIPS(
+    type VARCHAR(32) PK,
+    price DECIMAL(10, 2)
+)
+PAYMENTS(
+    id PK,
+    member_id FK,
+    date TIMESTAMP,
+    type FK,
+    actual_price DECIMAL(10, 2),
+    discount_percentage DECIMAL(5, 2)
+)
+PAYMENT_TYPES(
+    type VARCHAR(64) PK
+)
+BOOKINGS(
+    team_id PK FK,
+    member_id PK FK,
+    join_date TIMESTAMP
+)
+TRAINING_TEAMS(
+    id PK,
+    type FK,
+    max_members INTEGER,
+    instructor_id FK
+)
+TRAINING_TYPES(
+    type VARCHAR(32) PK,
+    description VARCHAR(512)
+)
+TRAINING_TIMES(
+    id PK,
+    team_id FK,
+    start_time TIMESTAMP,
+    duration INTERVAL,
+    instructor_id FK
+)
+INSTRUCTORS(
+    id PK,
+    first_name VARCHAR(50),
+    middle_initial VARCHAR(10),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    join_date TIMESTAMP
+)
 ```
