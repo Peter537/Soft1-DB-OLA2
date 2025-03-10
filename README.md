@@ -37,7 +37,7 @@ Vi har benyttet os af https://dbdiagram.io/ til at lave vores ER Model. [Databas
 **Overvejelser:**
 
 - Vi har lavet `id` som PK og ikke `email` fordi hvis et medlem skifter email, så er det nemmere at opdaterer email'en end at skulle opdatere alle FK's i andre tabeller, men vi har stadig sat U på email for at sikre at der ikke er 2 medlemmer med samme email.
-- Vi har lavet name til en composite attribute, fordi det kan bruges til flere forskellige ting såsom hvis man vil lave personlige beskeder til medlemmer (ex. 'Hej, Peter'), eller hvis man vil lave noget sortering eller filtrering på navne.
+- Vi har lavet name til at være flere individuelle attributer, fordi det kan bruges til flere forskellige ting såsom hvis man vil lave personlige beskeder til medlemmer (ex. 'Hej, Peter'), eller hvis man vil lave noget sortering eller filtrering på navne.
 - Vi har lavet `phone_number` som en optional varchar fordi der er mange slags typer af telefonnumre for forskellige lande, og det er ikke nødvendigt at have en telefonnummer for at være medlem.
 - Vi har lavet `membership_type` som FK til `memberships`-tabellen for at sikre at der ikke er nogen der har et medlemskab der ikke eksisterer. Derudover med denne FK sikrer vi også vi ikke behøver gå ind i `members`-tabellen for at ændre en CHECK-constraint hvis der kommer et nyt medlemskabstype.
 
